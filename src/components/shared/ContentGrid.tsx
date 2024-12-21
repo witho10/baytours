@@ -1,21 +1,23 @@
 'use client'
 
+interface GridColumns {
+  mobile: number
+  tablet: number
+  desktop: number
+}
+
 interface ContentGridProps {
   children: React.ReactNode
   loading?: boolean
   emptyMessage?: string
-  columns?: {
-    mobile?: number
-    tablet?: number
-    desktop?: number
-  }
+  columns?: Partial<GridColumns>
 }
 
 export default function ContentGrid({
   children,
   loading = false,
   emptyMessage = 'No items found',
-  columns: providedColumns,
+  columns: providedColumns = {},
 }: ContentGridProps) {
   const getGridColsClass = (cols: number) => {
     const classMap: { [key: number]: string } = {
@@ -27,7 +29,7 @@ export default function ContentGrid({
     return classMap[cols] || 'grid-cols-1'
   }
 
-  const defaultColumns = {
+  const defaultColumns: GridColumns = {
     mobile: 1,
     tablet: 2,
     desktop: 3,
@@ -36,7 +38,7 @@ export default function ContentGrid({
   const columns = {
     ...defaultColumns,
     ...providedColumns,
-  }
+  } as GridColumns
 
   const gridClass = `grid gap-6 ${getGridColsClass(columns.mobile)} md:${getGridColsClass(columns.tablet)} lg:${getGridColsClass(columns.desktop)}`
 
