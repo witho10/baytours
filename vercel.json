@@ -4,10 +4,8 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "buildEnvironment": {
-    "NEXT_TELEMETRY_DISABLED": "1"
-  },
   "env": {
+    "NEXT_TELEMETRY_DISABLED": "1",
     "NEXT_PUBLIC_SUPABASE_URL": "https://gldkzailhiufsnbgnjmj.supabase.co",
     "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdsZGt6YWlsaGl1ZnNuYmduam1qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ4MTQxNjIsImV4cCI6MjA1MDM5MDE2Mn0.KAy5YWNfcYontw4EjTOkT2rtVdpItDYL407DFUaYrBo"
   },
