@@ -31,11 +31,10 @@ export default function ContentGrid({
     return classMap[cols] || 'grid-cols-1'
   }
 
-  const mobileColumns = columns?.mobile ?? 1
-  const tabletColumns = columns?.tablet ?? 2
-  const desktopColumns = columns?.desktop ?? 3
+  // Ensure we have default values for undefined columns
+  const { mobile = 1, tablet = 2, desktop = 3 } = columns || {}
 
-  const gridClass = `grid gap-6 ${getGridColsClass(mobileColumns)} md:${getGridColsClass(tabletColumns)} lg:${getGridColsClass(desktopColumns)}`
+  const gridClass = `grid gap-6 ${getGridColsClass(mobile)} md:${getGridColsClass(tablet)} lg:${getGridColsClass(desktop)}`
 
   if (loading) {
     return (
