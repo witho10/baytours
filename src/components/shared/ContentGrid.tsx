@@ -35,11 +35,14 @@ export default function ContentGrid({
     return classMap[cols] || 'grid-cols-1'
   }
 
-  const getColumnValue = (key: keyof GridColumns): number => {
-    return columns?.[key] ?? DEFAULT_COLUMNS[key]
+  // Ensure we have valid column values
+  const finalColumns = {
+    mobile: typeof columns?.mobile === 'number' ? columns.mobile : DEFAULT_COLUMNS.mobile,
+    tablet: typeof columns?.tablet === 'number' ? columns.tablet : DEFAULT_COLUMNS.tablet,
+    desktop: typeof columns?.desktop === 'number' ? columns.desktop : DEFAULT_COLUMNS.desktop,
   }
 
-  const gridClass = `grid gap-6 ${getGridColsClass(getColumnValue('mobile'))} md:${getGridColsClass(getColumnValue('tablet'))} lg:${getGridColsClass(getColumnValue('desktop'))}`
+  const gridClass = `grid gap-6 ${getGridColsClass(finalColumns.mobile)} md:${getGridColsClass(finalColumns.tablet)} lg:${getGridColsClass(finalColumns.desktop)}`
 
   if (loading) {
     return (
