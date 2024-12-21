@@ -31,11 +31,11 @@ export default function ContentGrid({
     return classMap[cols] || 'grid-cols-1'
   }
 
-  const mobileColumns = columns?.mobile || 1
-  const tabletColumns = columns?.tablet || 2
-  const desktopColumns = columns?.desktop || 3
+  const mobile = typeof columns.mobile === 'number' ? columns.mobile : 1
+  const tablet = typeof columns.tablet === 'number' ? columns.tablet : 2
+  const desktop = typeof columns.desktop === 'number' ? columns.desktop : 3
 
-  const gridClass = `grid gap-6 ${getGridColsClass(mobileColumns)} md:${getGridColsClass(tabletColumns)} lg:${getGridColsClass(desktopColumns)}`
+  const gridClass = `grid gap-6 ${getGridColsClass(mobile)} md:${getGridColsClass(tablet)} lg:${getGridColsClass(desktop)}`
 
   if (loading) {
     return (
