@@ -15,11 +15,7 @@ export default function ContentGrid({
   children,
   loading = false,
   emptyMessage = 'No items found',
-  columns = {
-    mobile: 1,
-    tablet: 2,
-    desktop: 3,
-  },
+  columns: providedColumns,
 }: ContentGridProps) {
   const getGridColsClass = (cols: number) => {
     const classMap: { [key: number]: string } = {
@@ -31,11 +27,18 @@ export default function ContentGrid({
     return classMap[cols] || 'grid-cols-1'
   }
 
-  const mobile = typeof columns.mobile === 'number' ? columns.mobile : 1
-  const tablet = typeof columns.tablet === 'number' ? columns.tablet : 2
-  const desktop = typeof columns.desktop === 'number' ? columns.desktop : 3
+  const defaultColumns = {
+    mobile: 1,
+    tablet: 2,
+    desktop: 3,
+  }
 
-  const gridClass = `grid gap-6 ${getGridColsClass(mobile)} md:${getGridColsClass(tablet)} lg:${getGridColsClass(desktop)}`
+  const columns = {
+    ...defaultColumns,
+    ...providedColumns,
+  }
+
+  const gridClass = `grid gap-6 ${getGridColsClass(columns.mobile)} md:${getGridColsClass(columns.tablet)} lg:${getGridColsClass(columns.desktop)}`
 
   if (loading) {
     return (
