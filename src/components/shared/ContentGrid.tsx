@@ -21,17 +21,21 @@ export default function ContentGrid({
     desktop: 3,
   },
 }: ContentGridProps) {
-  const getGridColsClass = (cols: number | undefined) => {
+  const getGridColsClass = (cols: number) => {
     const classMap: { [key: number]: string } = {
       1: 'grid-cols-1',
       2: 'grid-cols-2',
       3: 'grid-cols-3',
       4: 'grid-cols-4',
     }
-    return classMap[cols || 1] || 'grid-cols-1'
+    return classMap[cols] || 'grid-cols-1'
   }
 
-  const gridClass = `grid gap-6 ${getGridColsClass(columns?.mobile)} md:${getGridColsClass(columns?.tablet)} lg:${getGridColsClass(columns?.desktop)}`
+  const mobileColumns = columns?.mobile ?? 1
+  const tabletColumns = columns?.tablet ?? 2
+  const desktopColumns = columns?.desktop ?? 3
+
+  const gridClass = `grid gap-6 ${getGridColsClass(mobileColumns)} md:${getGridColsClass(tabletColumns)} lg:${getGridColsClass(desktopColumns)}`
 
   if (loading) {
     return (
