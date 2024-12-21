@@ -13,11 +13,17 @@ interface ContentGridProps {
   columns?: Partial<GridColumns>
 }
 
+const DEFAULT_COLUMNS: GridColumns = {
+  mobile: 1,
+  tablet: 2,
+  desktop: 3,
+}
+
 export default function ContentGrid({
   children,
   loading = false,
   emptyMessage = 'No items found',
-  columns: providedColumns = {},
+  columns: providedColumns,
 }: ContentGridProps) {
   const getGridColsClass = (cols: number) => {
     const classMap: { [key: number]: string } = {
@@ -29,18 +35,13 @@ export default function ContentGrid({
     return classMap[cols] || 'grid-cols-1'
   }
 
-  const defaultColumns: GridColumns = {
-    mobile: 1,
-    tablet: 2,
-    desktop: 3,
+  const finalColumns: GridColumns = {
+    mobile: providedColumns?.mobile ?? DEFAULT_COLUMNS.mobile,
+    tablet: providedColumns?.tablet ?? DEFAULT_COLUMNS.tablet,
+    desktop: providedColumns?.desktop ?? DEFAULT_COLUMNS.desktop,
   }
 
-  const columns = {
-    ...defaultColumns,
-    ...providedColumns,
-  } as GridColumns
-
-  const gridClass = `grid gap-6 ${getGridColsClass(columns.mobile)} md:${getGridColsClass(columns.tablet)} lg:${getGridColsClass(columns.desktop)}`
+  const gridClass = `grid gap-6 ${getGridColsClass(finalColumns.mobile)} md:${getGridColsClass(finalColumns.tablet)} lg:${getGridColsClass(finalColumns.desktop)}`
 
   if (loading) {
     return (
