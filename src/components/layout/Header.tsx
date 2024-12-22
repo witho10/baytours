@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { MapPin, Users, Calendar, Menu } from 'lucide-react'
 
 export default function Header() {

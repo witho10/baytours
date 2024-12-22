@@ -23,7 +23,7 @@ export default function ContentGrid({
   children,
   loading = false,
   emptyMessage = 'No items found',
-  columns: userColumns,
+  columns: userColumns = {},
 }: ContentGridProps) {
   const getGridColsClass = (cols: number) => {
     const classMap: { [key: number]: string } = {
@@ -35,14 +35,14 @@ export default function ContentGrid({
     return classMap[cols] || 'grid-cols-1'
   }
 
-  // Create a new object with default values, then override with user values
-  const columns: GridColumns = {
-    mobile: userColumns?.mobile ?? DEFAULT_COLUMNS.mobile,
-    tablet: userColumns?.tablet ?? DEFAULT_COLUMNS.tablet,
-    desktop: userColumns?.desktop ?? DEFAULT_COLUMNS.desktop,
-  }
+  // Ensure we have valid column values with type safety
+  const safeColumns = {
+    mobile: userColumns.mobile !== undefined ? userColumns.mobile : DEFAULT_COLUMNS.mobile,
+    tablet: userColumns.tablet !== undefined ? userColumns.tablet : DEFAULT_COLUMNS.tablet,
+    desktop: userColumns.desktop !== undefined ? userColumns.desktop : DEFAULT_COLUMNS.desktop,
+  } satisfies GridColumns
 
-  const gridClass = `grid gap-6 ${getGridColsClass(columns.mobile)} md:${getGridColsClass(columns.tablet)} lg:${getGridColsClass(columns.desktop)}`
+  const gridClass = `grid gap-6 ${getGridColsClass(safeColumns.mobile)} md:${getGridColsClass(safeColumns.tablet)} lg:${getGridColsClass(safeColumns.desktop)}`
 
   if (loading) {
     return (
