@@ -35,14 +35,12 @@ export default function ContentGrid({
     return classMap[cols] || 'grid-cols-1'
   }
 
-  // Create a new object with default values, then override with user values
-  const columns: GridColumns = {
-    mobile: userColumns.mobile !== undefined ? userColumns.mobile : DEFAULT_COLUMNS.mobile,
-    tablet: userColumns.tablet !== undefined ? userColumns.tablet : DEFAULT_COLUMNS.tablet,
-    desktop: userColumns.desktop !== undefined ? userColumns.desktop : DEFAULT_COLUMNS.desktop,
-  }
+  // Ensure we have valid column values
+  const mobile = typeof userColumns.mobile === 'number' ? userColumns.mobile : DEFAULT_COLUMNS.mobile
+  const tablet = typeof userColumns.tablet === 'number' ? userColumns.tablet : DEFAULT_COLUMNS.tablet
+  const desktop = typeof userColumns.desktop === 'number' ? userColumns.desktop : DEFAULT_COLUMNS.desktop
 
-  const gridClass = `grid gap-6 ${getGridColsClass(columns.mobile)} md:${getGridColsClass(columns.tablet)} lg:${getGridColsClass(columns.desktop)}`
+  const gridClass = `grid gap-6 ${getGridColsClass(mobile)} md:${getGridColsClass(tablet)} lg:${getGridColsClass(desktop)}`
 
   if (loading) {
     return (
